@@ -1,5 +1,5 @@
 
-El formulario se realizo conforme al requerimiento y la Base de datos por favor verificar la base de datos enviada por ustedes <br>
+El formulario se realizo conforme al requerimiento y la base de datos enviada. <br>
 Por favor Antes de comenzar debe verificar si tiene instalado Composer! <br>
 Importante tener Xampp o Wamp y crear una base de datos llamada: laravel <br>
 Debe seguir las siguientes instrucciones:
