@@ -1,9 +1,16 @@
 @extends('base')
+@section('nav')
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-10">
 
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2">
+        <a href="{{route('home')}}" type="button" class="btn btn-primary"><i class="fa fa-home" style="font-size:15px"></i>&nbsp;Home</a>
+    </div>
+@endsection
 @section('content')
     <div class="container">
 
-        <form class="form-horizontal" action="{{ isset($data) ? url('actualizar/empleado/') : url('guardar/empleado/') }}" method="POST">
+        <form class="form-horizontal" action="{{ isset($data) && $data['estate']==1 ? url('actualizar/empleado') : url('guardar/empleado/') }}" method="POST">
             @csrf
             <fieldset>
 
@@ -14,6 +21,7 @@
                 {{--INCLUDE FUNCIONA PARA GUARDADO EXITOSO--}}
                 @include('flash-message')
                 {{--ERRORS FUNCIONA PARA VALIDACION DE CAMPOS CON UN REUQEST--}}
+                {{--
                 @if ($errors->any())
                     <div class="alert alert-danger">
                         <ul>
@@ -23,6 +31,7 @@
                         </ul>
                     </div>
                 @endif
+                --}}
 
                 <!-- Text input-->
                 <div class="row">
@@ -31,8 +40,9 @@
                                     completo*</strong></label></p>
                     </div>
                     <div class="col-md-8">
-                        <input old('nombre') id="nombre" name="nombre" type="text" placeholder="Nombre completo del empleado"
-                            class="form-control input-md" required="">
+                        <input id="nombre" name="nombre" type="text" placeholder="Nombre completo del empleado"
+                            class="form-control input-md" value="{{isset($data) && $data['estate']==1 ? $data['info']->nombre : '' }}">
+                            <input type="hidden" name="id" value="{{isset($data) && $data['estate']==1 ? $data['info']->id : ''}}">
                     </div>
                 </div>
 
@@ -43,7 +53,7 @@
                     </div>
                     <div class="col-md-8">
                         <input id="email" name="email" type="email" placeholder="Correo electrónico"
-                            class="form-control input-md" required="">
+                            class="form-control input-md" value="{{ isset($data) && $data['estate']==1 ? $data['info']->email : '' }}">
                     </div>
                 </div>
 
@@ -55,13 +65,13 @@
                     <div class="col-md-8">
                         <div class="radio">
                             <label for="sexo-0">
-                                <input type="radio" name="sexo" id="sexo-0" value="m">
+                                <input type="radio" name="sexo" id="sexo-0" value="M" {{ isset($data) && $data['estate']==1 && $data['info']->sexo=='M' ? 'checked' : '' }}>
                                 Masculino
                             </label>
                         </div>
                         <div class="radio">
                             <label for="sexo-1">
-                                <input type="radio" name="sexo" id="sexo-1" value="f">
+                                <input type="radio" name="sexo" id="sexo-1" value="F" {{ isset($data) && $data['estate']==1 && $data['info']->sexo=='F' ? 'checked' : '' }}>
                                 Femenino
                             </label>
                         </div>
@@ -75,8 +85,8 @@
                     </div>
                     <div class="col-md-8">
                         <select id="area" name="area" class="form-control">
-                            @foreach ($atributos['areas'] as $atributo)
-                                <option value="{{$atributo->id}}">{{$atributo->nombre}}</option>
+                            @foreach ($data['areas'] as $atributo)
+                                <option value="{{$atributo->id}}" {{ isset($data) && $data['estate']==1 && $data['info']->area_id==$atributo->id ? 'selected' : '' }}>{{$atributo->nombre}}</option>
                             @endforeach
                         </select>
                     </div>
@@ -89,7 +99,7 @@
                     </div>
                     <div class="col-md-8">
                         <textarea class="form-control" id="descripcion"
-                            name="descripcion">Descripción de la experiencia del empleado</textarea>
+                            name="descripcion">{{ isset($data) && $data['estate']==1 ? $data['info']->descripcion : '' }}</textarea>
                     </div>
                 </div>
 
@@ -99,7 +109,7 @@
                         <p><label class="control-label" for="roles"><strong>Roles*</strong></label></p>
                     </div>
                     <div class="col-md-8">
-                        @foreach ($atributos['roles'] as $roles)
+                        @foreach ($data['roles'] as $roles)
                             <div class="checkbox">
                                 <label for="roles-0">
                                     <input type="checkbox" name="roles" id="roles-0" value="{{$roles->nombre}}">

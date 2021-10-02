@@ -9,4 +9,8 @@ class Empleado extends Model
 {
     use HasFactory;
     protected $table="empleado";
+
+    public function area(){
+        return $this->belongsTo(Area::class);
+    }
 }

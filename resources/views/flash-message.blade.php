@@ -27,8 +27,8 @@
 @endif
 
 @if ($errors->any())
-<div class="alert alert-danger">
+<div class="alert alert-primary">
     <button type="button" class="close" data-dismiss="alert">×</button>
-    Por favor revise el formulario a continuación para ver si hay errores!
+    Los campos con asteriscos (*) son obligatorios
 </div>
 @endif

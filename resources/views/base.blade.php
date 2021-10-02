@@ -9,15 +9,16 @@
 
 </head>
 <body>
-    <div>
+    <x-delete-date/>
+    <div class="row">
         @section('nav')
 
         @show
     </div>
-    <div>
+    <div class="row">
         @yield('content')
     </div>
-    <div>
+    <div class="row">
         @section('footer')
 
         @show
