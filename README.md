@@ -17,4 +17,7 @@ Debe seguir las siguientes instrucciones:
 - La url que le aparece en la consola de comando copiela y peguela en su navegador
 - Por ultimo ejecute el comando; php artisan optimize
 - LISTO ya debe ver en funcionamiento la tabla y crear usuarios.
+<br>
+
+<h3> Se estaba creando una version dinamica de esta prueba: https://github.com/movix86/prueba </h3>
 
