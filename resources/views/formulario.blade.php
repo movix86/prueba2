@@ -13,10 +13,13 @@
         <form class="form-horizontal" action="{{ isset($data) && $data['estate']==1 ? url('actualizar/empleado') : url('guardar/empleado/') }}" method="POST">
             @csrf
             <fieldset>
-
                 <!-- Form Name -->
                 <legend>
-                    <h1>Crear empleado</h1>
+                    @if (isset($data) && $data['estate']==1)
+                        <h1>Actualizar empleado</h1>
+                    @else
+                        <h1>Crear empleado</h1>
+                    @endif
                 </legend>
                 {{--INCLUDE FUNCIONA PARA GUARDADO EXITOSO--}}
                 @include('flash-message')
@@ -32,7 +35,6 @@
                     </div>
                 @endif
                 --}}
-
                 <!-- Text input-->
                 <div class="row">
                     <div class="col-md-4">
