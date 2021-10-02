@@ -1,5 +1,5 @@
 
-Por favor Antes de comenzar debe verificar si tiene instalado Composer!
+Por favor Antes de comenzar debe verificar si tiene instalado Composer! <br>
 Por favor Seguir las siguientes instrucciones:
 
 - Abrir powershell o Gitbash.
