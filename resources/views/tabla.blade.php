@@ -9,9 +9,10 @@
 @endsection
 @section('content')
     <div class="container">
+        <h1>Lista de empleados</h1>
+        <br>
         <div class="row">
-            <h1>Lista de empleados</h1>
-            <table class="table">
+            <table class="table table-hover">
                 <thead>
                     <tr>
                         <th scope="col"><i class="fa fa-user" style="font-size:15px"></i>&nbsp;Nombre</th>

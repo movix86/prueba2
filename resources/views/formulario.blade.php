@@ -14,15 +14,17 @@
             @csrf
             <fieldset>
                 <!-- Form Name -->
-                <legend>
+                <legend class="tittle-foot">
                     @if (isset($data) && $data['estate']==1)
                         <h1>Actualizar empleado</h1>
                     @else
                         <h1>Crear empleado</h1>
                     @endif
                 </legend>
+                <br>
                 {{--INCLUDE FUNCIONA PARA GUARDADO EXITOSO--}}
                 @include('flash-message')
+                <br>
                 {{--ERRORS FUNCIONA PARA VALIDACION DE CAMPOS CON UN REUQEST--}}
                 {{--
                 @if ($errors->any())
@@ -131,6 +133,8 @@
                         <button id="guardar" name="guardar" class="btn btn-primary">Guardar</button>
                     </div>
                 </div>
+                <br>
+                <p class="tittle-foot">Creador por Juan Franco</p>
             </fieldset>
         </form>
     </div>
