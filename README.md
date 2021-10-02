@@ -14,5 +14,6 @@ Debe seguir las siguientes instrucciones:
 - Luego ejecutar el siguiente la siguiente linea; php artisan key:generate
 - Ahora escriba en la consola este comando y ejecutelo; php artisan serve
 - La url que le aparece en la consola de comando copiela y peguela en su navegador
+- Por ultimo ejecute el comando; php artisan optimize
 - LISTO ya debe ver en funcionamiento la tabla y crear usuarios.
 
