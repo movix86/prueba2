@@ -3,7 +3,7 @@ Por favor Antes de comenzar debe verificar si tiene instalado Composer!
 Por favor Seguir las siguientes instrucciones:
 
 - Abrir powershell o Gitbash.
-- Clonar el repositorio con: git clone git@github.com:movix86/prueba2.git.
+- Clonar el repositorio con: git clone git@github.com:movix86/prueba2.git
 - Ubicarse sobre el proyecto clonado con los comandos en consola: cd prueba2.
 - Luego installar composer: composer install.
 - Despues de composer termine, ejecutar el siguiente comando: php artisan migrate.
