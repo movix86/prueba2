@@ -19,5 +19,16 @@ Debe seguir las siguientes instrucciones:
 - LISTO ya debe ver en funcionamiento la tabla y crear usuarios.
 <br>
 
-<h3> Se estaba creando una version dinamica de esta prueba: https://github.com/movix86/prueba </h3>
+<h3>Base de Datos:</h3><br>
+<p>Para la base de datos se utilizo un ORM llamado Eloquent, es una herramienta de Laravel y sirve para mapear la BD.</p>
+<p>Tambien se crearon las relaciones con el ORM para que en la tabla no mostrara los IDs de la areas relacionadas con los empleados,</p>
+<p>si no que mostrara el nombre</p>
+<br>
+
+<h3>Javascript:</h3><br>
+<p>Se utiliza en el front y en este caso se uso para que cuando el usuario vaya a eliminar a un empleado, arroje una ventada modal de advertencia,</p>
+<p>ademas el modal es solo 1, no se repite codigo. con JS se puede hacer que por medio de rutas se elimine los empleado y generar los modales sin repetir codigo.</p>
+
+<br>
+<h3> Se estaba creando una version dinamica de esta prueba: https://github.com/movix86/prueba</h3>
 
