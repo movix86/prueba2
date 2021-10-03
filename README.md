@@ -16,7 +16,7 @@ Debe seguir las siguientes instrucciones:
 - Ahora escriba en la consola este comando y ejecutelo; php artisan serve
 - La url que le aparece en la consola de comando copiela y peguela en su navegador
 - Por ultimo ejecute el comando; php artisan optimize
-- LISTO ya debe ver en funcionamiento la tabla y crear usuarios, este pequeño desarrollo es un  pauqte y lo tiene todo.
+- LISTO ya debe ver en funcionamiento la tabla y crear usuarios, este pequeño desarrollo es un  paquete y lo tiene todo.
 <br>
 
 <h3>Base de Datos:</h3>
@@ -30,5 +30,5 @@ Debe seguir las siguientes instrucciones:
 <p>ademas el modal es solo 1, no se repite codigo. con JS se puede hacer que por medio de rutas se elimine los empleado y generar los modales sin repetir codigo.</p>
 
 <br>
-<h3> Se estaba creando una version dinamica de esta prueba: https://github.com/movix86/prueba</h3>
+<h3> Se estaba creando una version dinamica que no recarga la pantalla: https://github.com/movix86/prueba</h3>
 
