@@ -16,16 +16,16 @@ Debe seguir las siguientes instrucciones:
 - Ahora escriba en la consola este comando y ejecutelo; php artisan serve
 - La url que le aparece en la consola de comando copiela y peguela en su navegador
 - Por ultimo ejecute el comando; php artisan optimize
-- LISTO ya debe ver en funcionamiento la tabla y crear usuarios.
+- LISTO ya debe ver en funcionamiento la tabla y crear usuarios, este pequeño desarrollo es un  pauqte y lo tiene todo.
 <br>
 
-<h3>Base de Datos:</h3><br>
+<h3>Base de Datos:</h3>
 <p>Para la base de datos se utilizo un ORM llamado Eloquent, es una herramienta de Laravel y sirve para mapear la BD.</p>
 <p>Tambien se crearon las relaciones con el ORM para que en la tabla no mostrara los IDs de la areas relacionadas con los empleados,</p>
 <p>si no que mostrara el nombre</p>
 <br>
 
-<h3>Javascript:</h3><br>
+<h3>Javascript:</h3>
 <p>Se utiliza en el front y en este caso se uso para que cuando el usuario vaya a eliminar a un empleado, arroje una ventada modal de advertencia,</p>
 <p>ademas el modal es solo 1, no se repite codigo. con JS se puede hacer que por medio de rutas se elimine los empleado y generar los modales sin repetir codigo.</p>
 
