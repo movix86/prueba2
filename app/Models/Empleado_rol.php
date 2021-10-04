@@ -9,4 +9,8 @@ class Empleado_rol extends Model
 {
     use HasFactory;
     protected $table="empleado_rol";
+
+    public function empleado(){
+        return $this->hasMany(Empleado::class);
+    }
 }

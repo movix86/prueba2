@@ -5,3 +5,4 @@ function delete_date(url='', id=''){
     var elemento = document.getElementById('delete');
     elemento.setAttribute('href', path_delete);
 }
+

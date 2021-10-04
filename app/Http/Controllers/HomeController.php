@@ -1,10 +1,15 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Http\Livewire\Empleados;
+use Illuminate\Support\Facades\DB;
 use App\Models\Empleado;
 use App\Models\Area;
 use App\Models\Rol;
+use App\Models\Empleado_rol;
 use App\Http\Requests\EmpleadoFormValidator;
+use App\Http\Requests\EmpleadoUpdateValidator;
 
 use Illuminate\Http\Request;
 
@@ -23,16 +28,21 @@ class HomeController extends Controller
     }
 
     public function save_create(Request $request, EmpleadoFormValidator $validator){
+        DB::transaction(function () use ($request) {
+            tap(Empleado::create([
+                'nombre' => $request->input('nombre'),
+                'email' => $request->input('email'),
+                'sexo' => $request->input('sexo'),
+                'area_id' => $request->input('area'),
+                'boletin' => 0,
+                'descripcion' => $request->input('descripcion'),
+            ]), function ($id_emp) use ($request) {
+                $this->create_rol($id_emp, $request);
+            });
 
-        $empleado = new Empleado;
-        $empleado->nombre = $request->input('nombre');
-        $empleado->email = $request->input('email');
-        $empleado->sexo = $request->input('sexo');
-        $empleado->area_id = $request->input('area');
-        $empleado->boletin = 0;
-        $empleado->descripcion = $request->input('descripcion');
-        $empleado->save();
-        return back()->with('success','Guardada con exito!');
+        });
+        #En este caso cuando se crea el usuario, seguido dispara el metodo create_rol cpn los datos del usuario creado
+        return back()->with('success','Guardado con exito!');
     }
 
     public function read(){
@@ -53,10 +63,11 @@ class HomeController extends Controller
             'areas'=>$areas,
             'roles'=>$roles
         ];
+        #dd($data['info']->rol->rol_id);
         return view('formulario', ['data' => $data]);
     }
 
-    public function save_update(Request $request, EmpleadoFormValidator $validator){
+    public function save_update(Request $request, EmpleadoUpdateValidator $validator){
         if ($request->input('id')) {
             $empleado = Empleado::find($request->input('id'));
             $empleado->nombre = $request->input('nombre');
@@ -65,7 +76,10 @@ class HomeController extends Controller
             $empleado->area_id = $request->input('area');
             $empleado->boletin = 0;
             $empleado->descripcion = $request->input('descripcion');
+            $this->update_rol($request);
             $empleado->save();
+
+
             return back()->with('success','Actualizado con exito!');
         }
     }
@@ -74,5 +88,18 @@ class HomeController extends Controller
         $user = Empleado::where('id', $id)->first();
         $user->delete();
         return back()->with('success','Empleado eliminado con exito!');
+    }
+    public function update_rol($request){
+        #dd($request->id);
+        $area = Empleado_rol::where('empleado_id', $request->input('id'))->first();
+        $area->rol_id = $request->input('rol');
+        $area->save();
+    }
+    public function create_rol($id_emp, $request){
+        #dd($id_emp->id);
+        $area = new Empleado_rol;
+        $area->empleado_id = $id_emp->id;
+        $area->rol_id = $request->input('rol');
+        $area->save();
     }
 }

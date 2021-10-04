@@ -11,6 +11,8 @@
     <div class="container">
         <h1>Lista de empleados</h1>
         <br>
+        {{--INCLUDE FUNCIONA PARA GUARDADO EXITOSO--}}
+        @include('flash-message')
         <div class="row">
             <table class="table table-hover">
                 <thead>
