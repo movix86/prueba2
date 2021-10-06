@@ -23,6 +23,6 @@ class Empleado extends Model
     }
 
     public function rol(){
-        return $this->belongsTo(Empleado_rol::class, 'id');
+        return $this->belongsTo(Empleado_rol::class, 'id', 'empleado_id', 'rol_id');
     }
 }

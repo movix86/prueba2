@@ -28,6 +28,7 @@ class HomeController extends Controller
     }
 
     public function save_create(Request $request, EmpleadoFormValidator $validator){
+
         DB::transaction(function () use ($request) {
             tap(Empleado::create([
                 'nombre' => $request->input('nombre'),
@@ -96,10 +97,12 @@ class HomeController extends Controller
         $area->save();
     }
     public function create_rol($id_emp, $request){
-        #dd($id_emp->id);
-        $area = new Empleado_rol;
-        $area->empleado_id = $id_emp->id;
-        $area->rol_id = $request->input('rol');
-        $area->save();
+        $num = count($request->input('rol'));
+        for ($i=0; $i < $num; $i++) {
+            Empleado_rol::create([
+                'empleado_id' => $id_emp->id,
+                'rol_id' => $request->input('rol')[$i]
+            ]);
+        }
     }
 }

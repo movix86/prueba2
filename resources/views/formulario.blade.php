@@ -44,7 +44,7 @@
                                     completo*</strong></label></p>
                     </div>
                     <div class="col-md-8">
-                        <input id="nombre" name="nombre" type="text" placeholder="Nombre completo del empleado" pattern="[a-zA-Z]+"
+                        <input id="nombre" name="nombre" type="text" placeholder="Nombre completo del empleado" pattern="[a-zA-Z ]{2,254}"
                             class="form-control input-md" value="{{isset($data) && $data['estate']==1 ? $data['info']->nombre : '' }}">
                             <input type="hidden" name="id" value="{{isset($data) && $data['estate']==1 ? $data['info']->id : ''}}">
                     </div>
@@ -116,7 +116,10 @@
                         @foreach ($data['roles'] as $roles)
                             <div class="checkbox">
                                 <label for="rol-0">
-                                    <input type="checkbox" name="rol" id="rol-0" value="{{$roles->id}}" {{ isset($data) && $data['estate']==1 && $data['info']->rol->rol_id == $roles->id ? 'checked' : '' }}>
+                                    <input type="checkbox" name="rol[]" id="rol-0" value="{{$roles->id}}" {{
+                                        isset($data) && $data['estate']==1 && $data['info']->rol->rol_id == $roles->id ? 'checked' : ''
+
+                                        }}>
                                     {{$roles->nombre}}
                                 </label>
                             </div>
