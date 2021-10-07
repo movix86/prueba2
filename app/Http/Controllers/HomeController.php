@@ -92,9 +92,9 @@ class HomeController extends Controller
     }
     public function update_rol($request){
         #dd($request->id);
-        $area = Empleado_rol::where('empleado_id', $request->input('id'))->first();
-        $area->rol_id = $request->input('rol');
-        $area->save();
+        $rol = Empleado_rol::where('empleado_id', $request->input('id'))->first();
+        $rol->rol_id = (int)$request->input('rol');
+        $rol->save();
     }
     public function create_rol($id_emp, $request){
         $num = count($request->input('rol'));
