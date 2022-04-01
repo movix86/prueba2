@@ -10,15 +10,15 @@
 @section('content')
     <div class="container">
 
-        <form class="form-horizontal" action="{{ isset($data) && $data['estate']==1 ? url('actualizar/empleado') : url('guardar/empleado/') }}" method="POST">
+        <form class="form-horizontal" action="{{ isset($data) && $data['estate']==1 ? url('actualizar/producto') : url('guardar/producto') }}" method="POST">
             @csrf
             <fieldset>
                 <!-- Form Name -->
                 <legend class="tittle-foot">
                     @if (isset($data) && $data['estate']==1)
-                        <h1>Actualizar empleado</h1>
+                        <h3>Actualizar Producto</h3>
                     @else
-                        <h1>Crear empleado</h1>
+                        <h1>Crear Producto</h1>
                     @endif
                 </legend>
                 <br>
@@ -36,94 +36,74 @@
                         </ul>
                     </div>
                 @endif
+                
 
                 <!-- Text input-->
                 <div class="row">
                     <div class="col-md-4">
-                        <p><label class="control-label" for="nombre" style="text-align: right"><strong>Nombre
-                                    completo*</strong></label></p>
+                        <p><label class="control-label" for="nombre" style="text-align: right"><strong>Nombre*</strong></label></p>
                     </div>
                     <div class="col-md-8">
-                        <input id="nombre" name="nombre" type="text" placeholder="Nombre completo del empleado" pattern="[a-zA-Z ]{2,254}"
+                        <input id="nombre" name="nombre" type="text" placeholder="Nombre del producto" 
                             class="form-control input-md" value="{{isset($data) && $data['estate']==1 ? $data['info']->nombre : '' }}">
-                            <input type="hidden" name="id" value="{{isset($data) && $data['estate']==1 ? $data['info']->id : ''}}">
+                        <input type="hidden" name="id" value="{{isset($data) && $data['estate']==1 ? $data['info']->id : ''}}">
                     </div>
                 </div>
 
                 <!-- Text input-->
                 <div class="row">
                     <div class="col-md-4">
-                        <p><label class="control-label" for="email"><strong>Correo electrónico*</strong></label></p>
+                        <p><label class="control-label" for="email"><strong>Referencia*</strong></label></p>
                     </div>
                     <div class="col-md-8">
-                        <input id="email" name="email" type="email" placeholder="Correo electrónico"
-                            class="form-control input-md" value="{{ isset($data) && $data['estate']==1 ? $data['info']->email : '' }}">
+                        <input id="referencia" name="referencia" type="text" placeholder="Referencia"
+                            class="form-control input-md" value="{{ isset($data) && $data['estate']==1 ? $data['info']->referencia : '' }}">
                     </div>
                 </div>
-
-                <!-- Multiple Radios -->
+                <!-- Text input-->
                 <div class="row">
                     <div class="col-md-4">
-                        <p><label class="control-label" for="sexo"><strong>Sexo*</strong></label></p>
+                        <p><label class="control-label" for="precio" style="text-align: right"><strong>Precio*</strong></label></p>
                     </div>
                     <div class="col-md-8">
-                        <div class="radio">
-                            <label for="sexo-0">
-                                <input type="radio" name="sexo" id="sexo-0" value="M" {{ isset($data) && $data['estate']==1 && $data['info']->sexo=='M' ? 'checked' : '' }}>
-                                Masculino
-                            </label>
-                        </div>
-                        <div class="radio">
-                            <label for="sexo-1">
-                                <input type="radio" name="sexo" id="sexo-1" value="F" {{ isset($data) && $data['estate']==1 && $data['info']->sexo=='F' ? 'checked' : '' }}>
-                                Femenino
-                            </label>
-                        </div>
+                        <input id="precio" name="precio" type="number" placeholder="Precio" pattern="[a-zA-Z ]{2,254}"
+                            class="form-control input-md" value="{{isset($data) && $data['estate']==1 ? $data['info']->precio : '' }}">
+                    </div>
+                </div>
+                <!-- Text input-->
+                <div class="row">
+                    <div class="col-md-4">
+                        <p><label class="control-label" for="peso" style="text-align: right"><strong>Peso*</strong></label></p>
+                    </div>
+                    <div class="col-md-8">
+                        <input id="peso" name="peso" type="number" placeholder="Peso" pattern="[a-zA-Z ]{2,254}"
+                            class="form-control input-md" value="{{isset($data) && $data['estate']==1 ? $data['info']->peso : '' }}">
+        
                     </div>
                 </div>
 
                 <!-- Select Basic -->
                 <div class="row">
                     <div class="col-md-4">
-                        <p><label class="control-label" for="area"><strong>Área*</strong></label></p>
+                        <p><label class="control-label" for="categoria"><strong>Categoria*</strong></label></p>
                     </div>
                     <div class="col-md-8">
-                        <select id="area" name="area" class="form-control">
-                            @foreach ($data['areas'] as $atributo)
-                                <option value="{{$atributo->id}}" {{ isset($data) && $data['estate']==1 && $data['info']->area_id==$atributo->id ? 'selected' : '' }}>{{$atributo->nombre}}</option>
+                        <select id="categoria" name="categoria" class="form-control">
+                            @foreach ($data['category'] as $atributo)
+                                <option value="{{$atributo->id}}" {{ isset($data) && $data['estate']==1 && $data['info']->category_id==$atributo->id ? 'selected' : '' }}>{{$atributo->nombre}}</option>
                             @endforeach
                         </select>
                     </div>
                 </div>
-
-                <!-- Textarea -->
+                <!-- Text input-->
                 <div class="row">
                     <div class="col-md-4">
-                        <p><label class="control-label" for="descripcion"><strong>Descripción*</strong></label></p>
+                        <p><label class="control-label" for="stock" style="text-align: right"><strong>Stock*</strong></label></p>
                     </div>
                     <div class="col-md-8">
-                        <textarea class="form-control" id="descripcion"
-                            name="descripcion">{{ isset($data) && $data['estate']==1 ? $data['info']->descripcion : '' }}</textarea>
-                    </div>
-                </div>
-
-                <!-- Multiple Checkboxes -->
-                <div class="row">
-                    <div class="col-md-4">
-                        <p><label class="control-label" for="roles"><strong>Roles*</strong></label></p>
-                    </div>
-                    <div class="col-md-8">
-                        @foreach ($data['roles'] as $roles)
-                            <div class="checkbox">
-                                <label for="rol-0">
-                                    <input type="checkbox" name="rol[]" id="rol-0" value="{{$roles->id}}" {{
-                                        isset($data) && $data['estate']==1 && $data['info']->rol->rol_id == $roles->id ? 'checked' : ''
-
-                                        }}>
-                                    {{$roles->nombre}}
-                                </label>
-                            </div>
-                        @endforeach
+                        <input id="stock" name="stock" type="number" placeholder="Stock" pattern="[a-zA-Z ]{2,254}"
+                            class="form-control input-md" value="{{isset($data) && $data['estate']==1 ? $data['info']->stock : '' }}">
+        
                     </div>
                 </div>
 

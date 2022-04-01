@@ -12,14 +12,17 @@
 
         <!-- Modal body -->
         <div class="modal-body">
-            <div class="alert alert-danger">
+            <div class="alert alert-warning">
                 <strong>Cuidado!</strong> Esta seguro de esta acción?
             </div>
             <br>
             <center>
-                <td><a href="" class="delete" id="delete"><i class="fa fa-trash" data-toggle="modal" data-target="#myModal" style="font-size:64px; color:red;"></i></a></td>
+                <td><a href="" class="tramite" id="tramite">
+                  <i id="crear" class="fa fa-trash proceso" data-toggle="modal" data-target="#myModal" style="font-size:64px; color:red;"></i>
+                  <i id="eliminar" class="fa fa-trash proceso" data-toggle="modal" data-target="#myModal" style="font-size:64px; color:red;"></i>
+                  <i id="vender" class="fa fa-money proceso" data-toggle="modal" data-target="#myModal" style="font-size:64px; color:rgb(89, 187, 105);"></i>
+                </a></td>
             </center>
-
         </div>
 
         <!-- Modal footer -->

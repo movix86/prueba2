@@ -2,83 +2,93 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Livewire\Empleados;
 use Illuminate\Support\Facades\DB;
-use App\Models\Empleado;
-use App\Models\Area;
-use App\Models\Rol;
-use App\Models\Empleado_rol;
-use App\Http\Requests\EmpleadoFormValidator;
-use App\Http\Requests\EmpleadoUpdateValidator;
+use App\Models\Product;
+use App\Models\Category; 
+use App\Models\StockProduct;
+use App\Http\Requests\ProductFormValidator;
+use App\Http\Requests\ProductFormUpdateValidator;
 
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
     public function create(Request $request){
-
-        $areas = Area::all();
-        $roles = Rol::all();
+        
+        $categories = Category::all();
         $data = [
             'estate' => 0,
-            'areas'=>$areas,
-            'roles'=>$roles
+            'category'=>$categories
         ];
         return view('formulario', ['data'=> $data]);
     }
 
-    public function save_create(Request $request, EmpleadoFormValidator $validator){
+    public function save_create(Request $request, ProductFormValidator $validator){
+        if (empty($request)) {
+            return back()->with('success','Datos vacios!');
+        }
 
-        DB::transaction(function () use ($request) {
-            tap(Empleado::create([
-                'nombre' => $request->input('nombre'),
-                'email' => $request->input('email'),
-                'sexo' => $request->input('sexo'),
-                'area_id' => $request->input('area'),
-                'boletin' => 0,
-                'descripcion' => $request->input('descripcion'),
-            ]), function ($id_emp) use ($request) {
-                $this->create_rol($id_emp, $request);
-            });
+        Product::create([
+            'nombre' => $request->input('nombre'),
+            'referencia' => $request->input('referencia'),
+            'precio' => $request->input('precio'),
+            'peso' => $request->input('peso'),
+            'categoria' => $request->input('categoria'),
+            'stock' => $request->input('stock'),
+            'category_id' => $request->input('categoria'),
+            'created_at' => time(),
+            'updated_at' => time()
+        ]);
 
-        });
+
         #En este caso cuando se crea el usuario, seguido dispara el metodo create_rol cpn los datos del usuario creado
         return back()->with('success','Guardado con exito!');
     }
 
     public function read(){
-        $data = Empleado::all();
-        return view('tabla', ['empleados' => $data]);
+        $products = Product::all();
+        $categories = Category::select('id')->get();
+        $num = count($categories);
+        if($num <= 0){
+            $this->init();
+        }
+        $data = [
+            'products' => $products,
+            'categories' =>  $categories
+        ];
+        return view('tabla', ['data' => $data]);
     }
-
+    function init(){
+        Category::create([
+            'nombre' => 'Cafe',
+            'created_at' => time(),
+            'updated_at' => time()
+        ]);
+    }
     public function update($id){
-        $user = Empleado::where('id', $id)->first();
-        $area = Area::where('id', $user->area_id)->first();
-        $areas = Area::all();
-        $roles = Rol::all();
+        $product = Product::where('id', $id)->first();
+        $categories = Category::all();
 
         $data = [
             'estate' => 1,
-            'info'=>$user,
-            'area_user'=>$area,
-            'areas'=>$areas,
-            'roles'=>$roles
+            'info'=>$product,
+            'category'=>$categories
         ];
         #dd($data['info']->rol->rol_id);
         return view('formulario', ['data' => $data]);
     }
 
-    public function save_update(Request $request, EmpleadoUpdateValidator $validator){
+    public function save_update(Request $request, ProductFormUpdateValidator $validator){
         if ($request->input('id')) {
-            $empleado = Empleado::find($request->input('id'));
-            $empleado->nombre = $request->input('nombre');
-            $empleado->email = $request->input('email');
-            $empleado->sexo = $request->input('sexo');
-            $empleado->area_id = $request->input('area');
-            $empleado->boletin = 0;
-            $empleado->descripcion = $request->input('descripcion');
-            $this->update_rol($request);
-            $empleado->save();
+            $producto = Product::find($request->input('id'));
+            $producto->nombre = $request->input('nombre');
+            $producto->referencia = $request->input('referencia');
+            $producto->precio = $request->input('precio');
+            $producto->peso = $request->input('peso');
+            $producto->categoria = $request->input('categoria');
+            $producto->stock = $request->input('stock');
+            $producto->category_id = $request->input('categoria');
+            $producto->save();
 
 
             return back()->with('success','Actualizado con exito!');
@@ -86,23 +96,45 @@ class HomeController extends Controller
     }
 
     public function delete($id){
-        $user = Empleado::where('id', $id)->first();
+        $user = Product::where('id', $id)->first();
         $user->delete();
-        return back()->with('success','Empleado eliminado con exito!');
+        return back()->with('success','Producto eliminado con exito!');
     }
-    public function update_rol($request){
+    public function update_stock($request){
         #dd($request->id);
-        $rol = Empleado_rol::where('empleado_id', $request->input('id'))->first();
-        $rol->rol_id = (int)$request->input('rol');
+        $rol = StockProduct::where('product_id', $request->input('id'))->first();
+        $rol->rol_id = (int)$request->input('categoria');
         $rol->save();
     }
-    public function create_rol($id_emp, $request){
-        $num = count($request->input('rol'));
-        for ($i=0; $i < $num; $i++) {
-            Empleado_rol::create([
-                'empleado_id' => $id_emp->id,
-                'rol_id' => $request->input('rol')[$i]
-            ]);
+
+    function comprar(){
+        $products = Product::all();
+        return view('buy.buy', ['data' => $products]);
+    }
+
+    function transaccion($id){
+        $products = Product::where('id', $id)->first();
+
+        if ($products->stock == 0) {
+            return back()->with('success','No disponemos de stock!');
+        }else{
+            $products->stock = $products->stock-1;
+            $products->num_ventas = $products->num_ventas+1;
+            $products->save();
+            
         }
+        return back()->with('success','Vendido con exito!');
+    }
+
+    function category_create(){
+        return view('categoria.formulario_categoria');
+    }
+    function category_save(Request $request){
+        Category::create([
+            'nombre' => $request->input('nombre'),
+            'created_at' => time(),
+            'updated_at' => time()
+        ]);
+        return back()->with('success','Categoria creada con exito!');
     }
 }

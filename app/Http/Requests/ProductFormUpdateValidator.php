@@ -3,9 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use App\Models\Empleado;
 
-class EmpleadoFormValidator extends FormRequest
+class ProductFormUpdateValidator extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,11 +25,12 @@ class EmpleadoFormValidator extends FormRequest
     {
         return [
             'nombre' => 'required|string|max:255',
-            'email' => 'required|max:255|unique:empleado',
-            'sexo' => 'required|max:255',
-            'area' => 'required|max:255',
-            'descripcion' => 'required|string|max:255'
+            // 'referencia' => 'required|max:255|unique:referencia',
+            'referencia' => 'required|max:255',
+            'precio' => 'required|max:255',
+            'categoria' => 'required|string|max:255',
+            'peso' => 'required|max:255',
+            'stock' => 'required|max:255',
         ];
     }
-
 }

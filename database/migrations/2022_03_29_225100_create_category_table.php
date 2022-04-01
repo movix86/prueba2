@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateEmpleadoRol extends Migration
+class CreateCategoryTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,9 @@ class CreateEmpleadoRol extends Migration
      */
     public function up()
     {
-        Schema::create('empleado_rol', function (Blueprint $table) {
+        Schema::create('category', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('empleado_id')->constrained('empleado')->onUpdate('cascade')->onDelete('cascade');
-            $table->foreignId('rol_id')->constrained('roles')->onUpdate('cascade')->onDelete('cascade');
+            $table->string('nombre', 255);
             $table->timestamps();
         });
     }
@@ -28,6 +27,6 @@ class CreateEmpleadoRol extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('empleado_rol');
+        Schema::dropIfExists('category');
     }
 }
